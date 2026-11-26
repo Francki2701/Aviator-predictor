@@ -2,109 +2,120 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PREDICTOR DÉMO - HASARD</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOANJOBORY V13.0 PRO - DEMO</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#000;color:#fff;font-family:Arial;padding:10px;text-align:center}
-h1{font-size:16px;color:#FF1744;margin:5px 0}
-.phone{width:300px;max-width:95%;margin:0 auto;background:#0D0D0D;border:3px solid #00E676;border-radius:28px;padding:14px;box-shadow:0 0 20px #00E676}
-.top{display:flex;gap:6px;justify-content:center}.top span{flex:1;padding:7px;border-radius:8px;font-weight:900;font-size:12px}.rouge{background:#FF1744}.vert{background:#00C853}
-.cercle{width:190px;height:190px;border:5px solid #FF1744;border-radius:50%;margin:14px auto;display:flex;flex-direction:column;justify-content:center;align-items:center;background:#1A0000}
-.cercle b{font-size:44px;color:#FF1744}.cercle span{font-size:12px;color:#aaa}
-button{width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;font-size:15px;margin-top:8px}
-.btn-predict{background:#00C853;color:#fff}.btn-vol{background:#FFC800;color:#000}.btn-reset{background:#333;color:#fff}
-.vol{font-size:36px;font-weight:900;margin:10px 0}
-.bar{height:10px;background:#333;border-radius:20px;overflow:hidden}.fill{height:100%;background:#FF1744;width:0%}
-.msg{font-size:13px;font-weight:900;min-height:20px;margin:8px 0;line-height:1.5}
-.stats{display:flex;gap:7px}.stats div{flex:1;background:#222;border-radius:10px;padding:9px}.stats b{font-size:18px;display:block}
-.demo{background:#FFC800;color:#000;font-weight:900;padding:8px;border-radius:10px;font-size:12px;margin-top:10px;line-height:1.5}
-.small{font-size:11px;color:#aaa;line-height:1.5;margin-top:8px}
-input{width:100%;padding:11px;border-radius:10px;border:0;text-align:center;font-weight:900;margin-top:6px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#050000;color:#fff;padding:14px;padding-bottom:100px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-icon{width:42px;height:42px;background:#200;background:radial-gradient(circle,#ff2d55,#111);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
+.logo b{color:#ff2d55;font-size:19px;letter-spacing:1px}
+.logo small{display:block;color:#666;font-size:11px;letter-spacing:2px}
+.lang{display:flex;gap:4px;background:#111;padding:4px;border-radius:20px;font-size:12px}
+.lang span{padding:5px 10px;border-radius:15px}
+.lang .on{background:#ff2d55}
+.clock{margin-top:6px;text-align:right;font-size:13px;color:#4da3ff}
+.cards{display:flex;gap:8px;margin:16px 0}
+.card{flex:1;background:#0f0a0a;border:1px solid #222;border-radius:14px;padding:12px;text-align:center}
+.card b{font-size:19px}
+.card span{display:block;font-size:10px;color:#888;margin-top:3px;letter-spacing:1px}
+.circle{width:280px;height:280px;margin:18px auto;border-radius:50%;border:2px solid #ff2d55;box-shadow:0 0 50px #ff2d5533, inset 0 0 40px #ff2d5522;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.circle:before{content:"";position:absolute;width:250px;height:250px;border-radius:50%;border:1px solid #ff2d5544}
+#big{font-size:58px;font-weight:900;color:#ff2d55;text-shadow:0 0 20px #ff2d55}
+.label{font-size:11px;color:#888;letter-spacing:2px;margin-top:10px}
+#heure{color:#4da3ff;font-size:22px;font-weight:800;margin-top:3px}
+#count{font-size:12px;color:#aaa;margin-top:3px}
+.badge{margin-top:10px;border:1px solid #2e7d32;color:#4ade80;padding:5px 14px;border-radius:20px;font-size:12px}
+.btn{width:100%;background:#ff2d55;color:#fff;border:0;padding:17px;border-radius:14px;font-size:17px;font-weight:800;margin-top:10px}
+.real{display:flex;gap:8px;margin-top:14px}
+.real input{flex:1;background:#111;border:1px solid #222;color:#fff;padding:14px;border-radius:12px;font-size:15px}
+.real button{background:#ff2d55;border:0;color:#fff;padding:0 18px;border-radius:12px;font-size:18px}
+.menu{display:flex;gap:8px;margin-top:14px}
+.menu button{flex:1;background:#0f0a0a;border:1px solid #222;padding:14px 5px;border-radius:14px;color:#fff;font-size:13px}
+.menu small{display:block;font-size:18px;margin-bottom:4px}
+.warn{background:#0f0a0a;border:1px solid #222;border-radius:12px;padding:12px;font-size:12px;color:#999;line-height:1.5;margin-top:16px}
+.hist{margin-top:16px}
+.item{display:flex;justify-content:space-between;background:#151010;padding:12px;border-radius:10px;margin-top:8px;font-size:13px}
+.bottom{position:fixed;left:10px;right:10px;bottom:10px;background:#111;border:1px solid #222;border-radius:20px;display:flex;justify-content:space-around;padding:10px 0;font-size:11px;color:#888}
+.bottom div{text-align:center}
+.bottom .on{color:#fff}
+.bottom .on span{background:#ff2d55;display:block;width:36px;height:36px;border-radius:50%;line-height:36px;margin:0 auto 3px;font-size:18px}
+.demo{background:#ffcc00;color:#000;text-align:center;font-weight:800;padding:8px;border-radius:8px;font-size:12px;margin-bottom:10px}
 </style>
 </head>
 <body>
-<h1>📱 PREDICTOR - VERSION DÉMO</h1>
+<div class="demo">⚠️ DÉMO - CHIFFRE AU HASARD - NE PRÉDIT PAS AVIATOR</div>
 
-<div class="phone">
-<div class="top"><span class="rouge">AVIATOR</span><span class="vert">BET261 DÉMO</span></div>
-<div style="font-size:11px;color:#aaa;margin-top:8px">BOUTON COMME DANS LA VIDÉO - MAIS C'EST DU HASARD</div>
-
-<div class="cercle">
-<span>OBJECTIF TIRÉ AU HASARD</span>
-<b id="cible">--.--x</b>
-<span id="cibleTexte">Appuie sur le bouton</span>
+<div class="top">
+<div class="logo"><div class="logo-icon">✈️</div><div><b>VOANJOBORY</b><small>V13.0 PRO</small></div></div>
+<div><div class="lang"><span class="on">FR</span><span>MG</span><span>EN</span></div><div class="clock">🛡️ <span id="clock">06:08:52</span></div></div>
 </div>
 
-<button class="btn-predict" onclick="generer()">🎯 APPUYER - GÉNÉRER UN OBJECTIF</button>
-
-<div class="vol" id="vol">1.00x</div>
-<div class="bar"><div class="fill" id="fill"></div></div>
-<div class="msg" id="msg">1. Appuie pour générer un objectif<br>2. Lance le vol démo<br>3. Regarde si ça atteint l'objectif</div>
-
-<button class="btn-vol" onclick="lancerVol()">▶️ LANCER LE VOL DÉMO</button>
-
-<div class="stats" style="margin-top:10px">
-<div><span>Tests</span><b id="tests">0</b></div>
-<div><span>Réussi</span><b id="reussi" style="color:#00E676">0</b></div>
-<div><span>Raté</span><b id="rate" style="color:#FF1744">0</b></div>
+<div class="cards">
+<div class="card"><b id="nb">50</b><span>PRÉDICTIONS</span></div>
+<div class="card"><b id="prec">50%</b><span>PRÉCISION</span></div>
+<div class="card"><b id="moy">4.95</b><span>MOY</span></div>
 </div>
 
-<div class="demo">⚠️ DÉMO - CE CHIFFRE EST TIRÉ AU HASARD<br>IL NE PRÉDIT PAS LE VRAI BET261</div>
+<div class="circle">
+<div id="big">x4.80</div>
+<div class="label">HEURE PRÉVUE</div>
+<div id="heure">06:10:21</div>
+<div id="count">⏱ 01:29</div>
+<div class="badge" id="force">FORTE</div>
 </div>
 
-<div style="max-width:300px;margin:12px auto;text-align:left">
-<div class="demo" id="explication" style="background:#fff">Teste 10 fois. Tu vas voir : la plupart du temps, ça crash AVANT l'objectif. C'est pour ça que les vidéos TikTok ne montrent qu'1 fois sur 20.</div>
-<p class="small">Si tu mets 1000 MGA sur le vrai Bet261 à chaque objectif de 10.00x, tu perds 9 fois sur 10. C'est le hasard.</p>
+<button class="btn" onclick="generer()">✨ Générer prédiction</button>
+
+<div class="real">
+<input id="reel" placeholder="x réel ...">
+<button onclick="confirmer()">⏱ ✓</button>
+</div>
+
+<div class="menu">
+<button onclick="alert('DÉMO IA++')"><small>🧠</small>IA++</button>
+<button onclick="document.getElementById('hist').scrollIntoView()"><small>🕑</small>Historique</button>
+<button onclick="alert('DÉMO Paramètres')"><small>⚙️</small>Paramètres</button>
+</div>
+
+<div class="warn">⚠️ Les résultats Aviator proviennent de systèmes aléatoires sécurisés. Cette application fournit des analyses statistiques basées sur l'historique. Elle ne peut pas prédire avec certitude les résultats d'un jeu de hasard.</div>
+
+<div class="hist" id="hist"><h3 style="font-size:14px;color:#aaa">Historique</h3><div id="liste"></div></div>
+
+<div class="bottom">
+<div class="on"><span>🏠</span>Home</div><div>🕑<br>History</div><div>🧠<br>Ia</div><div>💬<br>Chat</div><div>🔔<br>Notifications</div><div>⚙️<br>Settings</div><div>🛡️<br>Admin</div>
 </div>
 
 <script>
-let cible=0, multi=1, enCours=false, crash=0, timer=null, tests=0, reussi=0, rate=0;
+let hist=[];
+let sec=89;
+function tick(){
+  let h=document.getElementById('clock');
+  let d=new Date(); h.innerText=d.toLocaleTimeString('fr-FR');
+  if(sec>0){sec--; let m=String(Math.floor(sec/60)).padStart(2,'0'); let s=String(sec%60).padStart(2,'0'); document.getElementById('count').innerText="⏱ "+m+":"+s;}
+}
+setInterval(tick,1000);
+
 function generer(){
-  // Comme les faux predictors : on tire un chiffre au hasard
-  let r=Math.random();
-  if(r<0.6) cible=1.5+Math.random()*1.5; // souvent petit
-  else if(r<0.85) cible=3+Math.random()*3; // parfois moyen
-  else cible=8+Math.random()*4; // rarement gros comme 10x
-  cible=Math.round(cible*100)/100;
-  document.getElementById('cible').innerText=cible.toFixed(2)+'x';
-  document.getElementById('cibleTexte').innerText='Objectif tiré au hasard';
-  document.getElementById('msg').innerHTML='🎯 Objectif : <b>'+cible.toFixed(2)+'x</b><br>Maintenant lance le vol démo pour voir si ça l\'atteint.';
+  let vals=[2.1,2.6,3.2,4.80,5.1,3.8,2.9,6.2];
+  let v=vals[Math.floor(Math.random()*vals.length)];
+  let forces=["FAIBLE","MOYENNE","FORTE","TRÈS FORTE"];
+  let f=forces[Math.floor(Math.random()*forces.length)];
+  let d=new Date(Date.now()+90000);
+  document.getElementById('big').innerText="x"+v.toFixed(2);
+  document.getElementById('force').innerText=f;
+  document.getElementById('heure').innerText=d.toLocaleTimeString('fr-FR');
+  sec=89;
+  window.last=v;
 }
-function lancerVol(){
-  if(!cible){alert('Appuie d\'abord sur GÉNÉRER UN OBJECTIF');return}
-  if(enCours) return;
-  // Le vrai crash, lui aussi au hasard, comme Bet261
-  crash=1+Math.random()*Math.random()*9;
-  if(Math.random()<0.25) crash=1+Math.random()*0.5;
-  multi=1; enCours=true;
-  document.getElementById('msg').innerText='✈️ Vol en cours... Objectif : '+cible.toFixed(2)+'x';
-  timer=setInterval(()=>{
-    multi+=0.05+multi*0.02; multi=Math.round(multi*100)/100;
-    document.getElementById('vol').innerText=multi.toFixed(2)+'x';
-    document.getElementById('fill').style.width=Math.min(multi*8,100)+'%';
-    if(multi>=cible){gagner();}
-    else if(multi>=crash){perdre();}
-  },100);
-}
-function gagner(){
-  clearInterval(timer); enCours=false; tests++; reussi++;
-  document.getElementById('msg').innerHTML='✅ ÇA A MARCHÉ CETTE FOIS !<br>Le vol a atteint '+cible.toFixed(2)+'x<br>C\'est de la chance, pas une prédiction.';
-  maj();
-}
-function perdre(){
-  clearInterval(timer); enCours=false; tests++; rate++;
-  document.getElementById('msg').innerHTML='💥 CRASH à '+crash.toFixed(2)+'x<br>Objectif '+cible.toFixed(2)+'x RATÉ.<br>C\'est ce qui arrive la plupart du temps.';
-  document.getElementById('vol').innerText='💥 CRASH @ '+crash.toFixed(2)+'x';
-  maj();
-}
-function maj(){
-  document.getElementById('tests').innerText=tests;
-  document.getElementById('reussi').innerText=reussi;
-  document.getElementById('rate').innerText=rate;
-  if(tests>=5){
-    let pct=Math.round(reussi/tests*100);
-    document.getElementById('explication').innerHTML='Après '+tests+' tests : '+reussi+' réussi, '+rate+' raté = '+pct+'% de réussite.<br>Si tu avais mis 1000 MGA à chaque fois sur le vrai Bet261, tu aurais perdu '+ (rate*1000) +' MGA.';
-  }
+function confirmer(){
+  let r=document.getElementById('reel').value;
+  if(!r||!window.last){alert("Génère d'abord une prédiction, puis mets le x réel");return;}
+  hist.unshift("Prédiction x"+window.last+" | Réel x"+r+" | "+new Date().toLocaleTimeString('fr-FR'));
+  document.getElementById('liste').innerHTML=hist.map(h=>"<div class='item'><span>"+h+"</span><span>✓</span></div>").join('');
+  document.getElementById('nb').innerText=50+hist.length;
+  document.getElementById('reel').value="";
 }
 </script>
 </body>
