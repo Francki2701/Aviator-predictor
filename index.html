@@ -3,136 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ROBOT PILOTE - CAPTURE BET261</title>
+<title>PREDICTOR DÉMO - HASARD</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#FFC800;color:#001A4D;font-family:Arial;padding:10px;text-align:center}
-h1{font-size:28px;margin:5px 0 0}.sous{font-size:12px;font-weight:900}
-.pilote{font-size:80px;margin:5px 0}
-.cockpit{background:#fff;border:3px solid #001A4D;border-radius:22px;padding:13px;margin:8px 0}
-.multi{font-size:50px;font-weight:900}.multi.crash{color:#FF1744}.multi.ok{color:#00C853}
-.bar{height:12px;background:#eee;border-radius:20px;overflow:hidden;margin:8px 0}.fill{height:100%;background:#001A4D;width:0%}
-input,select{width:100%;padding:12px;border:2px solid #001A4D;border-radius:12px;font-weight:900;font-size:14px;margin:5px 0;background:#fff;color:#001A4D;text-align:center}
-button{width:100%;padding:14px;border:0;border-radius:13px;font-weight:900;font-size:15px;margin-top:7px}
-.bleu{background:#001A4D;color:#fff}.vert{background:#00C853;color:#fff}.rouge{background:#FF1744;color:#fff}.orange{background:#FF6D00;color:#fff}
-.msg{font-weight:900;font-size:14px;min-height:20px}
-.badge{display:inline-block;padding:5px 9px;border-radius:20px;background:#FFC800;border:2px solid #001A4D;margin:2px;font-size:12px}
-.stats{display:flex;gap:7px}.stats div{flex:1;background:#FFC800;border:2px solid #001A4D;border-radius:12px;padding:9px}.stats b{font-size:18px;display:block}
-.conseil{background:#001A4D;color:#fff;border-radius:12px;padding:11px;font-size:13px;line-height:1.6;text-align:left}
-.small{font-size:11px;line-height:1.5}
-img{max-width:100%;border-radius:12px;border:2px solid #001A4D;margin-top:8px;display:none}
+*{box-sizing:border-box}body{margin:0;background:#000;color:#fff;font-family:Arial;padding:10px;text-align:center}
+h1{font-size:16px;color:#FF1744;margin:5px 0}
+.phone{width:300px;max-width:95%;margin:0 auto;background:#0D0D0D;border:3px solid #00E676;border-radius:28px;padding:14px;box-shadow:0 0 20px #00E676}
+.top{display:flex;gap:6px;justify-content:center}.top span{flex:1;padding:7px;border-radius:8px;font-weight:900;font-size:12px}.rouge{background:#FF1744}.vert{background:#00C853}
+.cercle{width:190px;height:190px;border:5px solid #FF1744;border-radius:50%;margin:14px auto;display:flex;flex-direction:column;justify-content:center;align-items:center;background:#1A0000}
+.cercle b{font-size:44px;color:#FF1744}.cercle span{font-size:12px;color:#aaa}
+button{width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;font-size:15px;margin-top:8px}
+.btn-predict{background:#00C853;color:#fff}.btn-vol{background:#FFC800;color:#000}.btn-reset{background:#333;color:#fff}
+.vol{font-size:36px;font-weight:900;margin:10px 0}
+.bar{height:10px;background:#333;border-radius:20px;overflow:hidden}.fill{height:100%;background:#FF1744;width:0%}
+.msg{font-size:13px;font-weight:900;min-height:20px;margin:8px 0;line-height:1.5}
+.stats{display:flex;gap:7px}.stats div{flex:1;background:#222;border-radius:10px;padding:9px}.stats b{font-size:18px;display:block}
+.demo{background:#FFC800;color:#000;font-weight:900;padding:8px;border-radius:10px;font-size:12px;margin-top:10px;line-height:1.5}
+.small{font-size:11px;color:#aaa;line-height:1.5;margin-top:8px}
+input{width:100%;padding:11px;border-radius:10px;border:0;text-align:center;font-weight:900;margin-top:6px}
 </style>
 </head>
 <body>
-<h1>AVIATOR PREDICTOR</h1>
-<div class="sous">ROBOT PILOTE - CAPTURE BET261</div>
-<div class="pilote" id="pilote">🤖✈️</div>
-<div style="font-weight:900;font-size:13px" id="piloteTexte">Pilote prêt. Envoie-moi ta capture Bet261.</div>
+<h1>📱 PREDICTOR - VERSION DÉMO</h1>
 
-<div class="cockpit" style="text-align:left">
-<h3 style="text-align:center;margin:0">1. TA CLÉ OCR (celle de tout à l'heure)</h3>
-<p style="font-size:12px;text-align:center;margin:4px 0">C'est la clé K8... que tu as reçue par email OCR.space</p>
-<input id="apiKey" placeholder="Colle ta clé ici : K8xxxxxxxx">
-<button class="orange" onclick="sauverCle()">💾 SAUVEGARDER MA CLÉ</button>
-<div id="cleOk" style="text-align:center;font-size:12px;font-weight:900;color:#00C853"></div>
+<div class="phone">
+<div class="top"><span class="rouge">AVIATOR</span><span class="vert">BET261 DÉMO</span></div>
+<div style="font-size:11px;color:#aaa;margin-top:8px">BOUTON COMME DANS LA VIDÉO - MAIS C'EST DU HASARD</div>
+
+<div class="cercle">
+<span>OBJECTIF TIRÉ AU HASARD</span>
+<b id="cible">--.--x</b>
+<span id="cibleTexte">Appuie sur le bouton</span>
 </div>
 
-<div class="cockpit" style="text-align:left">
-<h3 style="text-align:center;margin:0">2. ENVOIE TA CAPTURE BET261</h3>
-<p style="font-size:12px;text-align:center">1. Sur Bet261, fais une capture d'écran du haut, là où il y a les vols : 1.00x, 9.07x, 2.68x...<br>2. Clique ici, choisis ta capture, le pilote lit tout seul.</p>
-<input type="file" id="file" accept="image/*" onchange="lireCapture(event)">
-<img id="preview">
-<div class="msg" id="ocrStatus" style="text-align:center"></div>
-<button class="bleu" onclick="analyserAuto()">🤖 PILOTE, ANALYSE MA CAPTURE</button>
-<div id="liste" style="text-align:center;margin-top:7px"></div>
-<p style="font-size:11px;text-align:center">Si le pilote ne lit pas bien, tu peux corriger en bas :</p>
-<input id="hist" placeholder="Ex: 1.00, 9.07, 2.68, 3.52">
-</div>
+<button class="btn-predict" onclick="generer()">🎯 APPUYER - GÉNÉRER UN OBJECTIF</button>
 
-<div class="cockpit">
-<h3 style="margin:0">3. ORDRE DU PILOTE</h3>
-<div class="msg" id="ordre">Envoie ta capture, le pilote va analyser.</div>
-<div class="stats" style="margin-top:8px">
-<div><span>Crash &lt; 2x</span><b id="petit">-</b></div>
-<div><span>Moyenne</span><b id="moy">-</b></div>
-<div><span>Conseil</span><b id="autoConseil">-</b></div>
-</div>
-<label style="font-size:12px">Ton solde Bet261</label>
-<input id="solde" value="5486" type="number">
-<label style="font-size:12px">Ta mise</label>
-<select id="mise"><option value="500">500 MGA - Sûr</option><option value="1000" selected>1000 MGA</option><option value="2000">2000 MGA</option></select>
-<div class="conseil" id="conseil">Le pilote va te dire : encaisse à 1.30x, 1.50x ou 2.00x. Tu mets ça dans "Encaissement automatique" sur Bet261.</div>
-</div>
-
-<div class="cockpit">
-<h3 style="margin:0">4. VOL DÉMO DU PILOTE</h3>
-<div class="multi" id="multi">1.00x</div>
+<div class="vol" id="vol">1.00x</div>
 <div class="bar"><div class="fill" id="fill"></div></div>
-<div class="msg" id="msg">Le pilote attend...</div>
-<button class="bleu" onclick="volDemo()">▶️ FAIRE VOLER LE PILOTE</button>
-<button class="vert" id="btnEncaisser" style="display:none" onclick="encaisser()">💰 ENCAISSER MAINTENANT</button>
-<div class="stats" style="margin-top:8px">
-<div><span>Vols</span><b id="nbVols">0</b></div>
-<div><span>Gagnés</span><b id="nbGagnes" style="color:#00C853">0</b></div>
-<div><span>Perdus</span><b id="nbPerdus" style="color:#FF1744">0</b></div>
-</div>
+<div class="msg" id="msg">1. Appuie pour générer un objectif<br>2. Lance le vol démo<br>3. Regarde si ça atteint l'objectif</div>
+
+<button class="btn-vol" onclick="lancerVol()">▶️ LANCER LE VOL DÉMO</button>
+
+<div class="stats" style="margin-top:10px">
+<div><span>Tests</span><b id="tests">0</b></div>
+<div><span>Réussi</span><b id="reussi" style="color:#00E676">0</b></div>
+<div><span>Raté</span><b id="rate" style="color:#FF1744">0</b></div>
 </div>
 
-<div class="conseil"><b>⚠️ PILOTE HONNÊTE :</b><br>Il lit tes anciens vols, il ne devine pas le prochain. Le prochain est toujours au hasard sur Bet261.<br>Son travail : te dire si tu dois encaisser à 1.30x, 1.50x ou 2.00x pour ne pas tout perdre.</div>
-<p class="small">Robot d'aide par capture. Ne prédit pas le vrai Bet261. 18+ Joue responsable.</p>
+<div class="demo">⚠️ DÉMO - CE CHIFFRE EST TIRÉ AU HASARD<br>IL NE PRÉDIT PAS LE VRAI BET261</div>
+</div>
+
+<div style="max-width:300px;margin:12px auto;text-align:left">
+<div class="demo" id="explication" style="background:#fff">Teste 10 fois. Tu vas voir : la plupart du temps, ça crash AVANT l'objectif. C'est pour ça que les vidéos TikTok ne montrent qu'1 fois sur 20.</div>
+<p class="small">Si tu mets 1000 MGA sur le vrai Bet261 à chaque objectif de 10.00x, tu perds 9 fois sur 10. C'est le hasard.</p>
+</div>
 
 <script>
-let cle=localStorage.getItem('ocrKey')||'';
-if(cle){document.getElementById('apiKey').value=cle;document.getElementById('cleOk').innerText='✅ Clé sauvegardée';}
-function sauverCle(){cle=document.getElementById('apiKey').value.trim();localStorage.setItem('ocrKey',cle);document.getElementById('cleOk').innerText='✅ Clé sauvegardée : '+cle.substring(0,4)+'...';alert('Clé sauvegardée !');}
-let texteOCR='';
-function lireCapture(e){
-  let f=e.target.files[0]; if(!f) return;
-  let url=URL.createObjectURL(f);
-  let img=document.getElementById('preview'); img.src=url; img.style.display='block';
-  document.getElementById('ocrStatus').innerText='⏳ Le pilote lit ta capture... attends 5 secondes...';
-  document.getElementById('piloteTexte').innerText='Pilote : Je lis ta capture...';
-  let fd=new FormData(); fd.append('file',f); fd.append('apikey',cle||'helloworld'); fd.append('OCREngine','2'); fd.append('scale','true');
-  fetch('https://api.ocr.space/parse/image',{method:'POST',body:fd}).then(r=>r.json()).then(d=>{
-    texteOCR=d.ParsedResults?.[0]?.ParsedText||'';
-    document.getElementById('ocrStatus').innerText='✅ Lu : '+texteOCR.substring(0,120);
-    // Extraire tous les nombres comme 1.00, 9.07, 12.45
-    let nums=(texteOCR.match(/\d+\.\d{1,2}/g)||[]).map(v=>parseFloat(v)).filter(v=>v>=1&&v<=100);
-    // Enlever le solde / mise qui sont aussi des nombres, on garde les 12 premiers petits
-    nums=nums.slice(0,12);
-    if(nums.length>=3){document.getElementById('hist').value=nums.join(', ');document.getElementById('piloteTexte').innerText='Pilote : J\'ai trouvé '+nums.length+' vols ! Clique ANALYSE.'; analyserAuto();}
-    else{document.getElementById('ocrStatus').innerText='⚠️ Le pilote a mal lu. Retente avec une capture plus nette, juste le haut avec les vols.'}
-  }).catch(()=>{document.getElementById('ocrStatus').innerText='❌ Erreur OCR. Vérifie ta clé K8... et ta connexion.'});
+let cible=0, multi=1, enCours=false, crash=0, timer=null, tests=0, reussi=0, rate=0;
+function generer(){
+  // Comme les faux predictors : on tire un chiffre au hasard
+  let r=Math.random();
+  if(r<0.6) cible=1.5+Math.random()*1.5; // souvent petit
+  else if(r<0.85) cible=3+Math.random()*3; // parfois moyen
+  else cible=8+Math.random()*4; // rarement gros comme 10x
+  cible=Math.round(cible*100)/100;
+  document.getElementById('cible').innerText=cible.toFixed(2)+'x';
+  document.getElementById('cibleTexte').innerText='Objectif tiré au hasard';
+  document.getElementById('msg').innerHTML='🎯 Objectif : <b>'+cible.toFixed(2)+'x</b><br>Maintenant lance le vol démo pour voir si ça l\'atteint.';
 }
-let monAuto=1.5, multi=1, enCours=false, crash=0, timer=null, vols=0, gagnes=0, perdus=0;
-function analyserAuto(){
-  let txt=document.getElementById('hist').value.trim();
-  if(!txt){alert('Envoie d\'abord ta capture Bet261 !');return}
-  let vals=txt.split(',').map(v=>parseFloat(v.replace('x','').trim())).filter(v=>!isNaN(v)&&v>=1);
-  if(vals.length<3){alert('Le pilote a trouvé moins de 3 vols. Re-cadre ta capture juste sur les vols en haut.');return}
-  document.getElementById('liste').innerHTML=vals.map(v=>'<span class="badge">'+v.toFixed(2)+'x</span>').join('');
-  let moy=vals.reduce((a,b)=>a+b,0)/vals.length;
-  let petit=vals.filter(v=>v<2).length/vals.length*100;
-  document.getElementById('moy').innerText=moy.toFixed(2)+'x';
-  document.getElementById('petit').innerText=Math.round(petit)+'%';
-  if(petit>=70){monAuto=1.30;document.getElementById('autoConseil').innerText='1.30x';document.getElementById('ordre').innerText='🚨 PILOTE : Marché froid ! Encaisse à 1.30x, mise 500 MGA.'}
-  else if(petit>=50){monAuto=1.50;document.getElementById('autoConseil').innerText='1.50x';document.getElementById('ordre').innerText='🟡 PILOTE : Normal. Encaisse à 1.50x, mise 1000 MGA.'}
-  else {monAuto=2.00;document.getElementById('autoConseil').innerText='2.00x';document.getElementById('ordre').innerText='🟢 PILOTE : Marché chaud. Tu peux tenter 2.00x.'}
-  let solde=parseInt(document.getElementById('solde').value)||5486;
-  let mise=parseInt(document.getElementById('mise').value)||1000;
-  document.getElementById('conseil').innerHTML='✅ ORDRE PILOTE : Sur Bet261, mets <b>Encaissement automatique à '+monAuto+'x</b>, mise <b>'+mise+' MGA</b>.<br>Avec '+solde+' MGA tu peux tenir '+Math.floor(solde/mise)+' vols. Si tu perds 3 fois, ARRÊTE-TOI.';
-  document.getElementById('piloteTexte').innerText='Pilote : Analyse finie ! Encaisse à '+monAuto+'x !';
-}
-function volDemo(){
+function lancerVol(){
+  if(!cible){alert('Appuie d\'abord sur GÉNÉRER UN OBJECTIF');return}
   if(enCours) return;
-  crash=1+Math.random()*Math.random()*8; if(Math.random()<0.2) crash=1+Math.random()*0.4;
-  multi=1; enCours=true; document.getElementById('multi').className='multi';
-  document.getElementById('btnEncaisser').style.display='block';
-  document.getElementById('msg').innerText='✈️ Le pilote vole... Objectif : '+monAuto+'x';
-  timer=setInterval(()=>{multi+=0.05+multi*0.02; multi=Math.round(multi*100)/100; document.getElementById('multi').innerText=multi.toFixed(2)+'x'; document.getElementById('fill').style.width=Math.min(multi*10,100)+'%'; if(multi>=monAuto){document.getElementById('msg').innerText='✅ PILOTE : ENCAISSE MAINTENANT à '+monAuto+'x';} if(multi>=crash) crashVol();},100);
+  // Le vrai crash, lui aussi au hasard, comme Bet261
+  crash=1+Math.random()*Math.random()*9;
+  if(Math.random()<0.25) crash=1+Math.random()*0.5;
+  multi=1; enCours=true;
+  document.getElementById('msg').innerText='✈️ Vol en cours... Objectif : '+cible.toFixed(2)+'x';
+  timer=setInterval(()=>{
+    multi+=0.05+multi*0.02; multi=Math.round(multi*100)/100;
+    document.getElementById('vol').innerText=multi.toFixed(2)+'x';
+    document.getElementById('fill').style.width=Math.min(multi*8,100)+'%';
+    if(multi>=cible){gagner();}
+    else if(multi>=crash){perdre();}
+  },100);
 }
-function encaisser(){if(!enCours) return; clearInterval(timer); enCours=false; document.getElementById('multi').classList.add('ok'); document.getElementById('msg').innerText='✅ Bien joué ! Sorti à '+multi.toFixed(2)+'x'; document.getElementById('btnEncaisser').style.display='none'; vols++; gagnes++; maj();}
-function crashVol(){clearInterval(timer); enCours=false; document.getElementById('multi').innerText='💥 CRASH @ '+crash.toFixed(2)+'x'; document.getElementById('multi').classList.add('crash'); document.getElementById('msg').innerText='💥 Crash ! Tu n\'as pas encaissé à '+monAuto+'x à temps.'; document.getElementById('btnEncaisser').style.display='none'; vols++; perdus++; maj();}
-function maj(){document.getElementById('nbVols').innerText=vols;document.getElementById('nbGagnes').innerText=gagnes;document.getElementById('nbPerdus').innerText=perdus;}
+function gagner(){
+  clearInterval(timer); enCours=false; tests++; reussi++;
+  document.getElementById('msg').innerHTML='✅ ÇA A MARCHÉ CETTE FOIS !<br>Le vol a atteint '+cible.toFixed(2)+'x<br>C\'est de la chance, pas une prédiction.';
+  maj();
+}
+function perdre(){
+  clearInterval(timer); enCours=false; tests++; rate++;
+  document.getElementById('msg').innerHTML='💥 CRASH à '+crash.toFixed(2)+'x<br>Objectif '+cible.toFixed(2)+'x RATÉ.<br>C\'est ce qui arrive la plupart du temps.';
+  document.getElementById('vol').innerText='💥 CRASH @ '+crash.toFixed(2)+'x';
+  maj();
+}
+function maj(){
+  document.getElementById('tests').innerText=tests;
+  document.getElementById('reussi').innerText=reussi;
+  document.getElementById('rate').innerText=rate;
+  if(tests>=5){
+    let pct=Math.round(reussi/tests*100);
+    document.getElementById('explication').innerHTML='Après '+tests+' tests : '+reussi+' réussi, '+rate+' raté = '+pct+'% de réussite.<br>Si tu avais mis 1000 MGA à chaque fois sur le vrai Bet261, tu aurais perdu '+ (rate*1000) +' MGA.';
+  }
+}
 </script>
 </body>
 </html>
