@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ROBOT AVIATOR - DÉMO</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FFC800;color:#001A4D;font-family:Arial;padding:12px;text-align:center}
+h1{font-size:32px;margin:8px 0 2px}
+.sous{font-size:13px;font-weight:900}
+.robot{font-size:90px;margin:10px 0 0}
+.card{background:#fff;border:3px solid #001A4D;border-radius:20px;padding:14px;margin:12px 0}
+.multi{font-size:60px;font-weight:900;color:#001A4D}
+.multi.crash{color:#FF1744}
+.bar{height:12px;background:#eee;border-radius:20px;overflow:hidden;margin:10px 0}
+.fill{height:100%;background:#001A4D;width:0%;transition:width .2s}
+button{width:100%;padding:16px;border:0;border-radius:14px;font-weight:900;font-size:18px;margin-top:8px}
+.btn-start{background:#001A4D;color:#fff}
+.btn-out{background:#00C853;color:#fff;display:none}
+.btn-reset{background:#FF1744;color:#fff}
+.stat{display:flex;gap:8px;margin-top:10px}
+.stat div{flex:1;background:#FFC800;border:2px solid #001A4D;border-radius:12px;padding:10px}
+.stat b{font-size:20px;display:block}
+.small{font-size:11px;line-height:1.5;margin-top:8px}
+.avis{background:#001A4D;color:#fff;border-radius:12px;padding:10px;font-size:12px;line-height:1.6;margin-top:10px}
+</style>
+</head>
+<body>
+<h1>AVIATOR PREDICTOR</h1>
+<div class="sous">ROBOT DÉMO - POUR T'ENTRAÎNER, PAS POUR LE VRAI JEU</div>
+<div class="robot">🤖✈️</div>
+<div style="font-weight:900;font-size:14px">ROBOT PILOTE - Il simule des vols au hasard</div>
+
+<div class="card">
+<div style="font-size:13px;font-weight:900">VOL EN COURS</div>
+<div class="multi" id="multi">1.00x</div>
+<div class="bar"><div class="fill" id="fill"></div></div>
+<div id="conseil" style="font-weight:900;font-size:15px">Clique DÉMARRER pour lancer un vol.</div>
+<div id="resultat" style="font-size:13px;margin-top:6px"></div>
+<button class="btn-start" id="btnStart" onclick="demarrer()">▶️ DÉMARRER LE VOL</button>
+<button class="btn-out" id="btnOut" onclick="encaisser()">💰 ENCAISSER MAINTENANT</button>
+<button class="btn-reset" onclick="reset()">🔄 RESET</button>
+
+<div class="stat">
+<div><span>Vols</span><b id="nbVols">0</b></div>
+<div><span>Gagnés</span><b id="nbGagnes" style="color:#00C853">0</b></div>
+<div><span>Perdus</span><b id="nbPerdus" style="color:#FF1744">0</b></div>
+</div>
+<div class="stat">
+<div><span>% Gagné</span><b id="pctGagne">0%</b></div>
+<div><span>Meilleur vol</span><b id="meilleur">-</b></div>
+</div>
+</div>
+
+<div class="avis">
+<b>⚠️ VRAI CONSEIL DU ROBOT :</b><br>
+Aviator est aléatoire. Le robot ne sait pas quand ça va crasher.<br>
+La seule stratégie qui marche : encaisser tôt, à 1.50x - 2.00x, et ne jamais courir après tes pertes.<br>
+Si tu mets 5000 MGA, encaisse à 1.50x = 7500 MGA, tu sors, tu ne joues plus.
+</div>
+<p class="small">DÉMO éducative. Ce script ne prédit pas le vrai Aviator. 18+ Joue responsable.</p>
+
+<script>
+let multi=1.00, enCours=false, crash=0, timer=null, mise=5000, encaisse=0;
+let vols=0, gagnes=0, perdus=0, meilleur=0;
+
+function demarrer(){
+  if(enCours) return;
+  // Le crash est tiré au hasard, comme le vrai Aviator : personne ne le connaît d'avance
+  crash = 1 + Math.random()*Math.random()*8; // entre 1.00x et 9.00x, souvent bas
+  if(Math.random()<0.15) crash = 1.00 + Math.random()*0.3; // 15% de crash très tôt
+  multi=1.00; enCours=true; encaisse=0;
+  document.getElementById('multi').classList.remove('crash');
+  document.getElementById('btnStart').style.display='none';
+  document.getElementById('btnOut').style.display='block';
+  document.getElementById('resultat').innerText='';
+  document.getElementById('conseil').innerText='✈️ Ça monte... Encaisse avant le crash ! Conseil robot : sors à 1.50x - 2.00x';
+  timer=setInterval(()=>{
+    multi+=0.05 + multi*0.02;
+    multi=Math.round(multi*100)/100;
+    document.getElementById('multi').innerText=multi.toFixed(2)+'x';
+    document.getElementById('fill').style.width=Math.min(multi*10,100)+'%';
+    if(multi>=crash){ crasher(); }
+    else if(multi>=2.5){ document.getElementById('conseil').innerText='⚠️ Déjà haut ! Risque énorme, encaisse vite !'; }
+    else if(multi>=1.8){ document.getElementById('conseil').innerText='🟡 Zone risquée. Le robot te conseille d\'encaisser.'; }
+  },100);
+}
+function crasher(){
+  clearInterval(timer); enCours=false;
+  document.getElementById('multi').innerText='💥 CRASH @ '+crash.toFixed(2)+'x';
+  document.getElementById('multi').classList.add('crash');
+  document.getElementById('conseil').innerText='💥 Crash ! Tu as perdu si tu n\'as pas encaissé.';
+  document.getElementById('resultat').innerText='Tu as perdu ta mise de '+mise+' MGA.';
+  document.getElementById('btnOut').style.display='none';
+  document.getElementById('btnStart').style.display='block';
+  document.getElementById('btnStart').innerText='▶️ NOUVEAU VOL';
+  vols++; perdus++; majStats();
+}
+function encaisser(){
+  if(!enCours) return;
+  clearInterval(timer); enCours=false;
+  encaisse=multi;
+  let gain=Math.round(mise*encaisse);
+  if(encaisse>meilleur) meilleur=encaisse;
+  document.getElementById('conseil').innerText='✅ Bien joué ! Tu es sorti à temps.';
+  document.getElementById('resultat').innerText='Tu as encaissé à '+encaisse.toFixed(2)+'x → Gain '+gain+' MGA avec mise '+mise+' MGA.';
+  document.getElementById('btnOut').style.display='none';
+  document.getElementById('btnStart').style.display='block';
+  document.getElementById('btnStart').innerText='▶️ NOUVEAU VOL';
+  vols++; gagnes++; majStats();
+}
+function majStats(){
+  document.getElementById('nbVols').innerText=vols;
+  document.getElementById('nbGagnes').innerText=gagnes;
+  document.getElementById('nbPerdus').innerText=perdus;
+  let pct=vols?Math.round(gagnes/vols*100):0;
+  document.getElementById('pctGagne').innerText=pct+'%';
+  document.getElementById('meilleur').innerText=meilleur?meilleur.toFixed(2)+'x':'-';
+}
+function reset(){ vols=0; gagnes=0; perdus=0; meilleur=0; majStats(); document.getElementById('multi').innerText='1.00x'; document.getElementById('conseil').innerText='Clique DÉMARRER pour lancer un vol.'; }
+</script>
+</body>
+</html>
